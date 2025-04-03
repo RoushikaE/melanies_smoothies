@@ -5,7 +5,9 @@ from snowflake.snowpark.functions import col, when_matched
 st.title("Pending Smoothie Orders:")
 st.write("""Orders that needs to be filled:""")
 
-session = get_active_session()
+# session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
 my_dataframe = session.table("smoothies.public.orders").filter(col("ORDER_FILLED")==0).collect()
 
 if my_dataframe:
